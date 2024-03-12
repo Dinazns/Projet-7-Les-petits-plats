@@ -1,5 +1,18 @@
 import { recipes } from "./recipes.js";
 
+const searchHandler = function(e) {
+    console.log(e.target.value);
+    const word = e.target.value ?? "";
+    if (word.length >=3) {
+        const searchResults = recipes.filter((r) => r.name.toLowerCase().includes(word.toLowerCase()));
+        console.log(searchResults)
+    }
+  }
+
+
+const searchBar = document.getElementById('search_bar');
+searchBar.addEventListener('input', searchHandler);
+
 function loadData () {
     recipes.forEach((recipe) => {
         console.log(cardTemplate(recipe));
