@@ -6,13 +6,40 @@ function loadData () {
     })
 }
 
-function listIngredient (ingredients) {
+
+function listIngredient(ingredients) {
+    const liste = document.createElement("ul");
+    liste.className = "all_ingredients";
 
     ingredients.forEach((ingredient) => {
+        const div_elementList = document.createElement("div");
+        div_elementList.className = "one_blocIng";
+        const elementList = document.createElement("li");
+        elementList.className = "element_list";
+        const quantity_unit = document.createElement("li");
+        quantity_unit.className = "quantity_unit";
 
-    })
+        elementList.textContent = ingredient.ingredient;
+        
+        // Vérifie si l'unité est définie
+        if (ingredient.unit) {
+            quantity_unit.textContent = ingredient.quantity + ' ' + ingredient.unit;
+        } else {
+            // Si l'unité n'est pas définie, affiche simplement la quantité
+            quantity_unit.textContent = ingredient.quantity;
+        }
 
-};
+        div_elementList.appendChild(elementList);
+        div_elementList.appendChild(quantity_unit);
+        
+        /*
+        liste.appendChild(elementList);
+        liste.appendChild(quantity_unit);
+        */
+        liste.appendChild(div_elementList);
+    });
+    return liste;
+}
 
 
 function cardTemplate (recipe)  {
@@ -44,20 +71,25 @@ function cardTemplate (recipe)  {
     h3.innerHTML = 'RECETTE';
     const p_description = document.createElement("p");
     p_description.innerHTML = description;
+    p_description.className = "p_description";
 
-    const h2_ing = document.createElement("h2");
-    h2_ing.innerHTML = 'INGREDIENTS'
+    const h3_ing = document.createElement("h3");
+    h3_ing.innerHTML = 'INGREDIENTS'
 
-    const all_ingredients = document.createElement("div");
-    all_ingredients.className = "all_ingredients";
-    const ing = document.createElement("div");
-    ing.className = "ingredients";
-    // all_ingredients.innerHTML = ingredients;
-    const p_ing = document.createElement("p");
-    const p_unit = document.createElement("p");
+    const maListe = listIngredient(ingredients);
 
-    p_ing.innerHTML = ingredients;
-    p_unit.innerHTML = quantity + unit;
+    // const all_ingredients = document.createElement("div");
+    // all_ingredients.className = "all_ingredients";
+    // const ing = document.createElement("div");
+    // ing.className = "ingredients";
+    // // all_ingredients.innerHTML = ingredients;
+    // const p_ing = document.createElement("p");
+    // const p_unit = document.createElement("p");
+
+    // p_ing.appendChild(maListe);
+    // p_unit.innerHTML = quantity + unit;
+    
+
 
 
     card_intern.appendChild(img);
@@ -69,16 +101,17 @@ function cardTemplate (recipe)  {
     card_content.appendChild(div_recette);
     div_recette.appendChild(h3);
     div_recette.appendChild(p_description);
-    card_intern.appendChild(h2_ing);
-    card_content.appendChild(h2_ing);
+    card_intern.appendChild(h3_ing);
+    card_content.appendChild(h3_ing);
     
-    card_intern.appendChild(all_ingredients);
-    card_content.appendChild(all_ingredients);
-    all_ingredients.appendChild(ing);
-    ing.appendChild(p_ing);
-    ing.appendChild(p_unit);
+    // card_intern.appendChild(all_ingredients);
+    // card_content.appendChild(all_ingredients);
+    // all_ingredients.appendChild(ing);
+    // ing.appendChild(p_ing);
+    // ing.appendChild(p_unit);
 
     card_intern.appendChild(card_content);
+    card_intern.appendChild(maListe); 
     card.appendChild(card_intern);  
     article.appendChild(card);
     
