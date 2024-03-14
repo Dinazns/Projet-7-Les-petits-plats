@@ -4,9 +4,22 @@ const searchHandler = function(e) {
     console.log(e.target.value);
     const word = e.target.value ?? "";
     if (word.length >=3) {
-        const searchResults = recipes.filter((r) => r.name.toLowerCase().includes(word.toLowerCase()));
-        console.log(searchResults)
+        const searchResultsName = recipes.filter((r) => r.name.toLowerCase().includes(word.toLowerCase()));
+        console.log(searchResultsName)
+
+        const searchResultsDesc = recipes.filter((r) => r.description.toLowerCase().includes(word.toLowerCase()));
+        console.log(searchResultsDesc)   
+        
+        const searchResultsIng = recipes.filter(r => {
+            return r.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(word.toLowerCase()));
+        });
+
+        console.log(searchResultsIng)  
     }
+    // e.forEach((e_ingredient) => {
+    //     const searchResultsIng = recipes.filter((r) => r.e_ingredient.ingredient.toLowerCase().includes(word.toLowerCase()));
+    //     console.log(searchResultsIng)
+    // })
   }
 
 
