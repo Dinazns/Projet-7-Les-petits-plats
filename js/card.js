@@ -3,7 +3,7 @@ import { recipes } from "./recipes.js";
 const searchHandler = function(e) {
     console.log(e.target.value);
     const word = e.target.value ?? "";
-    if (word.length >=3) {
+    if (word.length >= 3) {
         const searchResultsName = recipes.filter((r) => r.name.toLowerCase().includes(word.toLowerCase()));
         console.log(searchResultsName)
 
@@ -13,8 +13,15 @@ const searchHandler = function(e) {
         const searchResultsIng = recipes.filter(r => {
             return r.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(word.toLowerCase()));
         });
+        console.log(searchResultsIng)
 
-        console.log(searchResultsIng)  
+        const finalRecipes = [...searchResultsName, ...searchResultsDesc, ...searchResultsIng];
+        resetCards();
+
+        finalRecipes.forEach((recipe) => cardTemplate(recipe));
+    } else {
+        resetCards();
+        loadData();
     }
     // e.forEach((e_ingredient) => {
     //     const searchResultsIng = recipes.filter((r) => r.e_ingredient.ingredient.toLowerCase().includes(word.toLowerCase()));
@@ -27,11 +34,13 @@ const searchBar = document.getElementById('search_bar');
 searchBar.addEventListener('input', searchHandler);
 
 function loadData () {
-    recipes.forEach((recipe) => {
-        console.log(cardTemplate(recipe));
-    })
+    recipes.forEach((recipe) => cardTemplate(recipe));
 }
 
+function resetCards (){
+    const all_cards = document.querySelectorAll(".all_cards .card");
+    Array.from(all_cards).forEach((card) => card.remove());
+};
 
 function listIngredient(ingredients) {
     const liste = document.createElement("ul");
@@ -47,11 +56,11 @@ function listIngredient(ingredients) {
 
         elementList.textContent = ingredient.ingredient;
         
-        // Vérifie si l'unité est définie
+        // On vérifie si l'unité est définie
         if (ingredient.unit) {
             quantity_unit.textContent = ingredient.quantity + ' ' + ingredient.unit;
         } else {
-            // Si l'unité n'est pas définie, affiche simplement la quantité
+            // Si l'unité n'est pas définie, on affiche simplement la quantité
             quantity_unit.textContent = ingredient.quantity;
         }
 
@@ -67,10 +76,9 @@ function listIngredient(ingredients) {
     return liste;
 }
 
-
 function cardTemplate (recipe)  {
     const { image, name, description, ingredients, time, quantity, unit} = recipe;
-    console.log(ingredients);
+    // console.log(ingredients);
     const article = document.querySelector(".all_cards");
     const card = document.createElement("div");
     card.className = "card";
@@ -104,20 +112,6 @@ function cardTemplate (recipe)  {
 
     const maListe = listIngredient(ingredients);
 
-    // const all_ingredients = document.createElement("div");
-    // all_ingredients.className = "all_ingredients";
-    // const ing = document.createElement("div");
-    // ing.className = "ingredients";
-    // // all_ingredients.innerHTML = ingredients;
-    // const p_ing = document.createElement("p");
-    // const p_unit = document.createElement("p");
-
-    // p_ing.appendChild(maListe);
-    // p_unit.innerHTML = quantity + unit;
-    
-
-
-
     card_intern.appendChild(img);
     card_intern.appendChild(time_recipe);
     card_intern.appendChild(card_content);
@@ -130,12 +124,6 @@ function cardTemplate (recipe)  {
     card_intern.appendChild(h3_ing);
     card_content.appendChild(h3_ing);
     
-    // card_intern.appendChild(all_ingredients);
-    // card_content.appendChild(all_ingredients);
-    // all_ingredients.appendChild(ing);
-    // ing.appendChild(p_ing);
-    // ing.appendChild(p_unit);
-
     card_intern.appendChild(card_content);
     card_intern.appendChild(maListe); 
     card.appendChild(card_intern);  
