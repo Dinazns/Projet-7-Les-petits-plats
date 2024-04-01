@@ -24,20 +24,67 @@
         <article class="menu_burger">
 
             <div class="all_menu">        
-                <select name="menu" id="menu-1">
-                    <option id="ingrédients" value="ingrédients">Ingrédients</option>
-                </select>
 
-                <select name="menu" id="menu-2">
-                    <option id="appareils" value="appareils">Appareils</option>
-                </select>
+                <ul class="menu_card--ing">
+                    <div class="menu_card__top">
+                        <p>Ingrédients</p>
+                        <i class="fas fa-chevron-up hide-arrow dropdown-icon-up"></i>
+                    </div>
+                    
+                    <div class="menu_hidden--ing">
+                        <div class="menu-hidden__searchbar">
+                            <input type="search" name="q" id="search-in-menu"/>
+                            <i class="fas fa-search" id="search-icon"></i>
+                        </div>
 
-                <select name="menu" id="menu-3">
-                    <option id="ustensiles" value="ustensiles">Ustensiles</option>
-                </select>  
+                        <ul id="ingredients-list"></ul>
+                    </div>
+                </ul>
+                
+                <ul class="menu_card--app">
+                    <div class="menu_card__top">
+                        <p>Appareils</p>
+                        <i class="fas fa-chevron-up hide-arrow dropdown-icon-up"></i>
+                    </div>
+                    
+                    <div class="menu_hidden--app">
+                        <div class="menu-hidden__searchbar">
+                            <input type="search" name="q" id="search-in-menu"/>
+                            <i class="fas fa-search" id="search-icon"></i>
+                        </div>
+                        <ul id="appareils-list"></ul>
+                    </div>
+                </ul>
+
+                <ul class="menu_card--uss">
+                    <div class="menu_card__top">
+                        <p>Ustensils</p>
+                        <i class="fas fa-chevron-up hide-arrow dropdown-icon-up"></i>
+                    </div>
+                    
+                    <div class="menu_hidden--uss">
+                        <div class="menu-hidden__searchbar">
+                            <input type="search" name="q" id="search-in-menu"/>
+                            <i class="fas fa-search" id="search-icon"></i>
+                        </div>
+                        <ul id="ustensils-list"></ul>
+                    </div>
+                </ul>
+                
+                
+<!-- 
+                <ul class="menu_text" id="menu-2"> Appareils
+                    <input type="search" class="search_inMenu" name="q"/>
+                    <i class="fas fa-search"></i>
+                </ul>
+
+                <ul class="menu_text" id="menu-3"> Ustensiles
+                    <input type="search" class="search_inMenu" name="q"/>
+                    <i class="fas fa-search"></i>
+                </ul> -->
             </div>    
             
-            <p>1500 recettes</p>
+            <p class="totalNumberRecipe">1500 recettes</p>
         </article> 
 
         <article class="all_cards"></article>
@@ -45,5 +92,6 @@
     </section>
 
     <script type="module" src="js/card.js"></script>
+    <script type="module" src="js/menu.js"></script>
 </body>
 </html>

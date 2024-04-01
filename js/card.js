@@ -5,17 +5,26 @@ const searchHandler = function(e) {
     const word = e.target.value ?? "";
     if (word.length >= 3) {
         const searchResultsName = recipes.filter((r) => r.name.toLowerCase().includes(word.toLowerCase()));
-        console.log(searchResultsName)
+        // console.log(searchResultsName)
 
         const searchResultsDesc = recipes.filter((r) => r.description.toLowerCase().includes(word.toLowerCase()));
-        console.log(searchResultsDesc)   
+        // console.log(searchResultsDesc)   
         
         const searchResultsIng = recipes.filter(r => {
             return r.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(word.toLowerCase()));
         });
-        console.log(searchResultsIng)
+        // console.log(searchResultsIng)
 
         const finalRecipes = [...searchResultsName, ...searchResultsDesc, ...searchResultsIng];
+
+        const ingArrayUnFlat = finalRecipes.map((r) => r.ingredients);
+        const ingredientsResults = ingArrayUnFlat.flat()
+        const ustensilsArrayUnFlat = finalRecipes.map((r) => r.ustensils);
+        const ustensilsResults = ustensilsArrayUnFlat.flat()
+        const appArrayResult = finalRecipes.map((r) => r.appliance);
+        console.log(ustensilsResults);
+        console.log(appArrayResult);
+        console.log(ingredientsResults);
         resetCards();
 
         finalRecipes.forEach((recipe) => cardTemplate(recipe));
@@ -23,11 +32,11 @@ const searchHandler = function(e) {
         resetCards();
         loadData();
     }
-    // e.forEach((e_ingredient) => {
-    //     const searchResultsIng = recipes.filter((r) => r.e_ingredient.ingredient.toLowerCase().includes(word.toLowerCase()));
-    //     console.log(searchResultsIng)
-    // })
+
+
   }
+
+//   faire une fonction pour les tags
 
 
 const searchBar = document.getElementById('search_bar');

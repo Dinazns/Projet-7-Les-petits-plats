@@ -43,7 +43,7 @@ body {
     font-size: 44px;
 }
 
-i {
+.fa-solid {
     position: absolute;
     right: 1%;
     padding: 10px;
@@ -87,24 +87,112 @@ input {
     height: 100%;
 }
 
-.menu_burger p {
-    font-family: "Anton", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+.menu_card--ing, .menu_card--app, .menu_card--uss, #ingredients-list, #appareils-list, #ustensils-list {
+    font-family: "Manrope";
+    font-weight: 300;
+    font-style: normal;   
+    font-size: 14px;
+}
+
+.menu_card--ing, .menu_card--app, .menu_card--uss {
+   margin-left: -40px;
+}
+
+
+#ingredients-list, #appareils-list, #ustensils-list {
+   
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #ededed white;
+    max-height: 200px;
+
+    width: 179px;
+    background-color: white;
+    padding: 10px 16px;    
+    font-size: 15px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .all_menu {
     display: flex;
     gap: 63px;
+    margin-left: 0;
 }
 
-#menu-1, #menu-2, #menu-3 {
+.menu_card__top {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     width: 179px;
+    height: 40px;
     border: none;
     background-color: white;
-    padding: 17px 16px 17px 16px;
+    padding: 10px 16px;
     border-radius: 10px;
     font-size: 15px;
+}
+
+.menu_card--ing .menu_hidden--ing {
+    display: none;
+}
+.menu_card--ing:hover .menu_card__top {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.menu_card--ing:hover .menu_hidden--ing {
+    display: initial;
+}
+.menu_card--ing:hover .fa-chevron-up {
+    transform: rotate(180deg);
+}
+
+.menu_card--app .menu_hidden--app {
+    display: none;
+}
+.menu_card--app:hover .menu_card__top {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.menu_card--app:hover .menu_hidden--app {
+    display: initial;
+}
+.menu_card--app:hover .fa-chevron-up {
+    transform: rotate(180deg);
+}
+
+.menu_card--uss .menu_hidden--uss {
+    display: none;
+}
+.menu_card--uss:hover .menu_card__top {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.menu_card--uss:hover .menu_hidden--uss {
+    display: initial;
+}
+.menu_card--uss:hover .fa-chevron-up {
+    transform: rotate(180deg);
+}
+
+.menu-hidden__searchbar {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;     
+    background-color: white;   
+}
+
+.menu-hidden__searchbar input[type="search"] {
+    padding-right: 30px;
+    margin-right: -25px;    
+    width: 180px;
+    height: 35px;
+}
+
+li {
+    list-style: none;
 }
 
  /* _______________________________________________  Cards */
@@ -155,7 +243,7 @@ input {
     margin: 25px;
 }
 
-h2 {
+h2, .totalNumberRecipe {
     font-size: 18px;
     font-family: "Anton", sans-serif;
     font-weight: 400;
