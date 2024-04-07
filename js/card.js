@@ -1,40 +1,51 @@
 import { recipes } from "./recipes.js";
+import { loadDropdownElements } from "./menu.js";
+import { ul_ingMenu1, ul_ingMenu2, ul_ingMenu3 } from "./menu.js";
+
+export const appArrayResult = [];
+
+function resetCards (){
+    const all_cards = document.querySelectorAll(".all_cards .card");
+    Array.from(all_cards).forEach((card) => card.remove());
+};
+
+function resetDropdown() {
+    ul_ingMenu1.innerHTML = '';
+    ul_ingMenu2.innerHTML = '';
+    ul_ingMenu3.innerHTML = '';
+}
 
 const searchHandler = function(e) {
     console.log(e.target.value);
-    const word = e.target.value ?? "";
+    const word = e.target.value.toLowerCase() ?? "";
+
     if (word.length >= 3) {
-        const searchResultsName = recipes.filter((r) => r.name.toLowerCase().includes(word.toLowerCase()));
-        // console.log(searchResultsName)
+        const searchResultsName = recipes.filter((r) => r.name.toLowerCase().includes(word));
+        const searchResultsDesc = recipes.filter((r) => r.description.toLowerCase().includes(word));
+        const searchResultsIng = recipes.filter(r => r.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(word)));
 
-        const searchResultsDesc = recipes.filter((r) => r.description.toLowerCase().includes(word.toLowerCase()));
-        // console.log(searchResultsDesc)   
+        const finalRecipes = [...searchResultsName, ...searchResultsDesc, ...searchResultsIng];        
+        const removeDoubles = Array.from(new Set(finalRecipes).values());
+
+        const ingredientsFlat = removeDoubles.map((r) => r.ingredients.map((i) => i)).flat();
+        const ustensilsFlat = removeDoubles.map((r) => r.ustensils.map((u) => u)).flat();
+        const appliances = removeDoubles.map((r) => r.appliance);
+
+        resetDropdown();
         
-        const searchResultsIng = recipes.filter(r => {
-            return r.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(word.toLowerCase()));
-        });
-        // console.log(searchResultsIng)
+        loadDropdownElements(ingredientsFlat, "ingredient");
+        loadDropdownElements(ustensilsFlat, "ustensils");
+        loadDropdownElements(appliances, "appliance");
 
-        const finalRecipes = [...searchResultsName, ...searchResultsDesc, ...searchResultsIng];
-
-        const ingArrayUnFlat = finalRecipes.map((r) => r.ingredients);
-        const ingredientsResults = ingArrayUnFlat.flat()
-        const ustensilsArrayUnFlat = finalRecipes.map((r) => r.ustensils);
-        const ustensilsResults = ustensilsArrayUnFlat.flat()
-        const appArrayResult = finalRecipes.map((r) => r.appliance);
-        console.log(ustensilsResults);
-        console.log(appArrayResult);
-        console.log(ingredientsResults);
         resetCards();
-
-        finalRecipes.forEach((recipe) => cardTemplate(recipe));
+        
+        finalRecipes.forEach((recipe) => cardTemplate(recipe));   
     } else {
         resetCards();
         loadData();
     }
+}
 
-
-  }
 
 //   faire une fonction pour les tags
 
@@ -43,13 +54,18 @@ const searchBar = document.getElementById('search_bar');
 searchBar.addEventListener('input', searchHandler);
 
 function loadData () {
+    resetDropdown();
+
+    const ingredientsFlat = recipes.map((r) => r.ingredients.map((i) => i)).flat();
+    const ustensilsFlat = recipes.map((r) => r.ustensils.map((u) => u)).flat();
+    const appliances = recipes.map((r) => r.appliance);
+
+    loadDropdownElements(ingredientsFlat, "ingredient");
+    loadDropdownElements(ustensilsFlat, "ustensils");
+    loadDropdownElements(appliances, "appliance");
+
     recipes.forEach((recipe) => cardTemplate(recipe));
 }
-
-function resetCards (){
-    const all_cards = document.querySelectorAll(".all_cards .card");
-    Array.from(all_cards).forEach((card) => card.remove());
-};
 
 function listIngredient(ingredients) {
     const liste = document.createElement("ul");
@@ -58,8 +74,10 @@ function listIngredient(ingredients) {
     ingredients.forEach((ingredient) => {
         const div_elementList = document.createElement("div");
         div_elementList.className = "one_blocIng";
+        
         const elementList = document.createElement("li");
         elementList.className = "element_list";
+
         const quantity_unit = document.createElement("li");
         quantity_unit.className = "quantity_unit";
 

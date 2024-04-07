@@ -1,44 +1,40 @@
-import { recipes } from "./recipes.js";
+function isObject(variable) {
+    return typeof variable === 'object' && variable !== null;
+}
+    
+export const ul_ingMenu1 = document.getElementById("ingredients-list");
+export const ul_ingMenu2 = document.getElementById("appareils-list");
+export const ul_ingMenu3 = document.getElementById("ustensils-list");
 
-// Parcours chaque recette
-recipes.forEach((recipe) => {
+export function loadDropdownElements(elements, type) {
+    const removeDuplicates = Array.from(new Set(elements).values());
+    const finalResults= new Set();
 
-    const ingredients = recipe.ingredients;
-    const appareils = recipe.appliance;
-    const ustensils = recipe.ustensils;
-
-    // Parcours chaque ingrédient/ustensile/appareil de la recette
-    ingredients.forEach((ingredient) => {
-        // Affiche chaque ingrédient
-        const ul_ingMenu = document.getElementById("ingredients-list");
-        const li_1 = document.createElement('li');
-        // const div_elementList = document.getElementsByClassName('menu_hidden');
-        li_1.textContent = ingredient.ingredient;
-
-        // div_elementList.appendChild(ul_ingMenu);
-        ul_ingMenu.appendChild(li_1);
-
-        // console.log(ingredient.ingredient);
+    removeDuplicates.forEach((e) => {
+        const name = isObject(e) ? e[type].toLowerCase() : e; // si c'est un objet, je récup le type de l'objet sinn je prends l'élement tel quel
+        finalResults.add(name); // ajoute le nom ou l'élément lui mm si c'est pas un objet à finalResults
     });
+    
+    switch(type) {
+        case "ingredient":
+            finalResults.forEach((e) => ul_ingMenu1.appendChild(createElement(e)));
+            break;
 
-        const ul_ingMenu2 = document.getElementById("appareils-list");
-        const li_2 = document.createElement('li');
-        li_2.textContent = appareils;
+        case "ustensils":
+            finalResults.forEach((e) => ul_ingMenu3.appendChild(createElement(e)));
+            break;
+        
+        case "appliance":
+            finalResults.forEach((e) => ul_ingMenu2.appendChild(createElement(e)));
+            break;
 
-        ul_ingMenu2.appendChild(li_2);
+        default: break;
+    }
+}
 
-        const ul_ingMenu3 = document.getElementById("ustensils-list");
-        ustensils.forEach((ustensil) => {
-            const li_3 = document.createElement('li');
-            li_3.textContent = ustensil;
-            ul_ingMenu3.appendChild(li_3);
-        });
-
-});
-
-
-
-
-
-
+function createElement (item) { 
+    const li = document.createElement('li');
+    li.textContent = item;
+    return li;
+};
 
