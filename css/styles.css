@@ -195,6 +195,48 @@ li {
     list-style: none;
 }
 
+/* ________________________________________________  Tag */
+
+.allBlocsTags {
+    display: flex;
+    gap: 30px;
+}
+
+.blocTag_menu {
+    display: block;
+    background-color: #FFD15B;
+    border-radius: 10px;
+    width: 200px;
+    height: 50px;
+}
+
+.liTag_menu {
+    display: flex;
+    padding-left: 25px;
+    align-items: center;
+    font-size: 15px;
+
+    font-family: "Manrope";
+    font-weight: 300;
+    font-style: normal;   
+    font-size: 14px;
+}
+
+.liTag_menu:hover {
+    cursor: pointer;
+    background-color: #FFD15B;
+}
+
+.btnClose {
+    display: flex;
+    position: relative;
+    bottom: 38.5px;
+    left: 85%;
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+}
+
  /* _______________________________________________  Cards */
 
 .all_cards {

@@ -23,6 +23,7 @@ const searchHandler = function(e) {
         const searchResultsName = recipes.filter((r) => r.name.toLowerCase().includes(word));
         const searchResultsDesc = recipes.filter((r) => r.description.toLowerCase().includes(word));
         const searchResultsIng = recipes.filter(r => r.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(word)));
+        // console.log(ingredient.ingredient.toLowerCase());
 
         const finalRecipes = [...searchResultsName, ...searchResultsDesc, ...searchResultsIng];        
         const removeDoubles = Array.from(new Set(finalRecipes).values());
@@ -46,6 +47,69 @@ const searchHandler = function(e) {
     }
 }
 
+// ________________________________________________________
+
+function searchInMenu (el) {
+    console.log(el.target.value);
+    const inputMenuWord = el.target.value.toLowerCase() ?? "";
+
+    if (inputMenuWord.length >=3) {
+
+        const listIng = recipes.filter(r => r.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(inputMenuWord)));        
+        const listApp = recipes.filter(r => r.appliance.toLowerCase().includes(inputMenuWord));
+        // const listUst = recipes.filter(r => r.ustensils.some(ustensil => ustensil.ustensils.toLowerCase().includes(inputMenuWord)));
+        const listUst = recipes.filter(r => r.ustensils.some(ustensil => ustensil.toLowerCase().includes(inputMenuWord)));
+
+
+        const finalSearchMenu = [...listIng, ...listApp,...listUst];
+        console.log(finalSearchMenu);
+
+        const doublesInMenu = Array.from(new Set(finalSearchMenu).values());
+
+        const ingredientsFlatt = doublesInMenu.map((r) => r.ingredients.map((i) => i)).flat();
+        const ustensilsFlatt = doublesInMenu.map((r) => r.ustensils.map((u) => u)).flat();
+        const appliancess = doublesInMenu.map((r) => r.appliance);
+
+        // resetElementLi();
+        resetDropdown();
+        resetCards();
+
+        loadDropdownElements(ingredientsFlatt, "ingredient");
+        loadDropdownElements(ustensilsFlatt, "ustensils");
+        loadDropdownElements(appliancess, "appliance");
+
+
+        const listItems = document.querySelectorAll('.li_menu');
+
+        listItems.forEach(item => {
+            
+            const text = item.textContent.trim().toLowerCase();
+            if (text.includes(inputMenuWord)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        finalSearchMenu.forEach((recipe) => cardTemplate(recipe));
+
+
+    } else {
+        resetCards();
+        loadData();
+    }
+
+};
+
+const searchinMenu = document.getElementById("search-in-menu1");
+const searchinMenu2 = document.getElementById("search-in-menu2");
+const searchinMenu3 = document.getElementById("search-in-menu3");
+searchinMenu.addEventListener('input', searchInMenu);
+searchinMenu2.addEventListener('input', searchInMenu);
+searchinMenu3.addEventListener('input', searchInMenu);
+
+//________________________________________________________
+
 
 //   faire une fonction pour les tags
 
@@ -67,7 +131,7 @@ function loadData () {
     recipes.forEach((recipe) => cardTemplate(recipe));
 }
 
-function listIngredient(ingredients) {
+export function listIngredient(ingredients) {
     const liste = document.createElement("ul");
     liste.className = "all_ingredients";
 
@@ -103,7 +167,7 @@ function listIngredient(ingredients) {
     return liste;
 }
 
-function cardTemplate (recipe)  {
+export function cardTemplate (recipe)  {
     const { image, name, description, ingredients, time, quantity, unit} = recipe;
     // console.log(ingredients);
     const article = document.querySelector(".all_cards");

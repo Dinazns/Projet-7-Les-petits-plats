@@ -1,3 +1,6 @@
+// import { recipes } from "./recipes.js";
+// import { cardTemplate, listIngredient } from "./card.js";
+
 function isObject(variable) {
     return typeof variable === 'object' && variable !== null;
 }
@@ -35,6 +38,15 @@ export function loadDropdownElements(elements, type) {
 function createElement (item) { 
     const li = document.createElement('li');
     li.textContent = item;
+    li.className = 'li_menu';
     return li;
 };
+
+// export function resetElementLi (){
+//     Array.from(ul_ingMenu1).forEach((li) => li.remove());
+//     Array.from(ul_ingMenu2).forEach((li) => li.remove());
+//     Array.from(ul_ingMenu3).forEach((li) => li.remove());
+// };
+
+
 
