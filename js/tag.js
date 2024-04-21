@@ -1,7 +1,6 @@
 const allBlocsTags = document.querySelector('.allBlocsTags');
 // allBlocsTags.className = 'allBlocsTags';
 
-
 function tag(event) {
     const valueLiMenu = event.target.textContent;
     
@@ -25,7 +24,6 @@ function tag(event) {
         blocTag_menu.style.display = 'none';
     });
 }
-
 
 const li_menu = document.querySelectorAll('.li_menu');
 
