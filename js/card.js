@@ -37,7 +37,7 @@ const searchHandler = function(e) {
         loadDropdownElements(ingredientsFlat, "ingredient");
         loadDropdownElements(ustensilsFlat, "ustensils");
         loadDropdownElements(appliances, "appliance");
-
+        clickOnElement();
         resetCards();
         
         finalRecipes.forEach((recipe) => cardTemplate(recipe));   
@@ -112,18 +112,13 @@ searchinMenu3.addEventListener('input', searchInMenu);
 
 
 //   faire une fonction pour les tags
-
-
 const searchBar = document.getElementById('search_bar');
 searchBar.addEventListener('input', searchHandler);
-
 function loadData () {
     resetDropdown();
-
     const ingredientsFlat = recipes.map((r) => r.ingredients.map((i) => i)).flat();
     const ustensilsFlat = recipes.map((r) => r.ustensils.map((u) => u)).flat();
     const appliances = recipes.map((r) => r.appliance);
-
     loadDropdownElements(ingredientsFlat, "ingredient");
     loadDropdownElements(ustensilsFlat, "ustensils");
     loadDropdownElements(appliances, "appliance");
@@ -224,3 +219,43 @@ export function cardTemplate (recipe)  {
 }
 
 loadData();
+const allBlocsTags = document.querySelector('.allBlocsTags');
+
+const DoublesTags = new Set();
+
+function tag(event) {
+    const valueLiMenu = event.target.textContent;
+    if (!DoublesTags.has(valueLiMenu)) {
+
+        DoublesTags.add(valueLiMenu);
+    
+        const blocTag_menu = document.createElement('div');
+        blocTag_menu.className = 'blocTag_menu';
+
+        const liTag_menu = document.createElement('p');
+        liTag_menu.className = 'liTag_menu';
+        liTag_menu.textContent = valueLiMenu;
+
+        const btnClose = document.createElement('button');
+        btnClose.className = 'btnClose';
+        btnClose.textContent = 'x';
+
+        blocTag_menu.appendChild(liTag_menu);
+        blocTag_menu.appendChild(btnClose);
+
+        allBlocsTags.appendChild(blocTag_menu);
+
+        btnClose.addEventListener('click', () => {
+            blocTag_menu.style.display = 'none';
+        });
+    }
+}
+
+export function clickOnElement(){
+    console.log("dggdg");
+    const li_menu = document.querySelectorAll('.li_menu');
+
+    li_menu.forEach(li => {
+        li.addEventListener('click', tag);
+    });
+}
