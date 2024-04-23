@@ -1,28 +1,33 @@
 const allBlocsTags = document.querySelector('.allBlocsTags');
 // allBlocsTags.className = 'allBlocsTags';
+const DoublesTags = new Set();
 
 function tag(event) {
     const valueLiMenu = event.target.textContent;
+    if (!DoublesTags.has(valueLiMenu)) {
+
+        DoublesTags.add(valueLiMenu);
     
-    const blocTag_menu = document.createElement('div');
-    blocTag_menu.className = 'blocTag_menu';
+        const blocTag_menu = document.createElement('div');
+        blocTag_menu.className = 'blocTag_menu';
 
-    const liTag_menu = document.createElement('p');
-    liTag_menu.className = 'liTag_menu';
-    liTag_menu.textContent = valueLiMenu;
+        const liTag_menu = document.createElement('p');
+        liTag_menu.className = 'liTag_menu';
+        liTag_menu.textContent = valueLiMenu;
 
-    const btnClose = document.createElement('button');
-    btnClose.className = 'btnClose';
-    btnClose.textContent = 'x';
+        const btnClose = document.createElement('button');
+        btnClose.className = 'btnClose';
+        btnClose.textContent = 'x';
 
-    blocTag_menu.appendChild(liTag_menu);
-    blocTag_menu.appendChild(btnClose);
+        blocTag_menu.appendChild(liTag_menu);
+        blocTag_menu.appendChild(btnClose);
 
-    allBlocsTags.appendChild(blocTag_menu);
+        allBlocsTags.appendChild(blocTag_menu);
 
-    btnClose.addEventListener('click', () => {
-        blocTag_menu.style.display = 'none';
-    });
+        btnClose.addEventListener('click', () => {
+            blocTag_menu.style.display = 'none';
+        });
+    }
 }
 
 const li_menu = document.querySelectorAll('.li_menu');
