@@ -14,7 +14,7 @@ export function loadDropdownElements(elements, type) {
     const finalResults= new Set();
 
     removeDuplicates.forEach((e) => {
-        const name = isObject(e) ? e[type].toLowerCase() : e; // si c'est un objet, je récup le type de l'objet sinn je prends l'élement tel quel
+        const name = isObject(e) ? e[type].toLowerCase() : e.toLowerCase(); // si c'est un objet, je récup le type de l'objet sinn je prends l'élement tel quel
         finalResults.add(name); // ajoute le nom ou l'élément lui mm si c'est pas un objet à finalResults
     });
     

@@ -224,7 +224,7 @@ const allBlocsTags = document.querySelector('.allBlocsTags');
 const DoublesTags = new Set();
 
 function tag(event) {
-    const valueLiMenu = event.target.textContent;
+    const valueLiMenu = event.target.textContent.toLowerCase();
     if (!DoublesTags.has(valueLiMenu)) {
 
         DoublesTags.add(valueLiMenu);
