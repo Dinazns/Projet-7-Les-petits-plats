@@ -4,9 +4,22 @@ import { ul_ingMenu1, ul_ingMenu2, ul_ingMenu3 } from "./menu.js";
 
 export const appArrayResult = [];
 
+let finalRecipes = []; 
+
+let searchResultsName = [];
+let searchResultsDesc = [];
+let searchResultsIng = [];
+let listIng = [];
+let listApp = [];
+let listUst = [];
+
 function resetCards (){
+    console.log("Reset cards and tags");
     const all_cards = document.querySelectorAll(".all_cards .card");
     Array.from(all_cards).forEach((card) => card.remove());
+
+    // allBlocsTags.innerHTML = '';
+    // DoublesTags.clear();
 };
 
 function resetDropdown() {
@@ -15,17 +28,20 @@ function resetDropdown() {
     ul_ingMenu3.innerHTML = '';
 }
 
+// BARRE DE RECHERCHE PRINCIPALE__________________________________
+
 const searchHandler = function(e) {
     console.log(e.target.value);
     const word = e.target.value.toLowerCase() ?? "";
 
     if (word.length >= 3) {
-        const searchResultsName = recipes.filter((r) => r.name.toLowerCase().includes(word));
-        const searchResultsDesc = recipes.filter((r) => r.description.toLowerCase().includes(word));
-        const searchResultsIng = recipes.filter(r => r.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(word)));
+         searchResultsName = recipes.filter((r) => r.name.toLowerCase().includes(word));
+         searchResultsDesc = recipes.filter((r) => r.description.toLowerCase().includes(word));
+         searchResultsIng = recipes.filter(r => r.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(word)));
         // console.log(ingredient.ingredient.toLowerCase());
 
-        const finalRecipes = [...searchResultsName, ...searchResultsDesc, ...searchResultsIng];        
+        // finalRecipes = [...searchResultsName, ...searchResultsDesc, ...searchResultsIng];        
+        finalRecipes = [...searchResultsName, ...searchResultsDesc, ...searchResultsIng]; 
         const removeDoubles = Array.from(new Set(finalRecipes).values());
 
         const ingredientsFlat = removeDoubles.map((r) => r.ingredients.map((i) => i)).flat();
@@ -40,14 +56,14 @@ const searchHandler = function(e) {
         clickOnElement();
         resetCards();
         
-        finalRecipes.forEach((recipe) => cardTemplate(recipe));   
+        removeDoubles.forEach((recipe) => cardTemplate(recipe));   
     } else {
         resetCards();
         loadData();
     }
 }
 
-// ________________________________________________________
+// RECHERCHE AVANCEES DANS LES LISTES MENUS__________________________________
 
 function searchInMenu (el) {
     console.log(el.target.value);
@@ -55,16 +71,20 @@ function searchInMenu (el) {
 
     if (inputMenuWord.length >=3) {
 
-        const listIng = recipes.filter(r => r.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(inputMenuWord)));        
-        const listApp = recipes.filter(r => r.appliance.toLowerCase().includes(inputMenuWord));
+         listIng = recipes.filter(r => r.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(inputMenuWord)));        
+         listApp = recipes.filter(r => r.appliance.toLowerCase().includes(inputMenuWord));
         // const listUst = recipes.filter(r => r.ustensils.some(ustensil => ustensil.ustensils.toLowerCase().includes(inputMenuWord)));
-        const listUst = recipes.filter(r => r.ustensils.some(ustensil => ustensil.toLowerCase().includes(inputMenuWord)));
+         listUst = recipes.filter(r => r.ustensils.some(ustensil => ustensil.toLowerCase().includes(inputMenuWord)));
 
 
-        const finalSearchMenu = [...listIng, ...listApp,...listUst];
-        console.log(finalSearchMenu);
+        // const finalSearchMenu = [...listIng, ...listApp,...listUst];
+        finalRecipes = [...listIng, ...listApp,...listUst];
 
-        const doublesInMenu = Array.from(new Set(finalSearchMenu).values());
+        // console.log(finalSearchMenu);
+        console.log(finalRecipes);
+
+        // const doublesInMenu = Array.from(new Set(finalSearchMenu).values());
+        const doublesInMenu = Array.from(new Set(finalRecipes).values());
 
         const ingredientsFlatt = doublesInMenu.map((r) => r.ingredients.map((i) => i)).flat();
         const ustensilsFlatt = doublesInMenu.map((r) => r.ustensils.map((u) => u)).flat();
@@ -91,7 +111,8 @@ function searchInMenu (el) {
             }
         });
 
-        finalSearchMenu.forEach((recipe) => cardTemplate(recipe));
+        // finalSearchMenu.forEach((recipe) => cardTemplate(recipe));
+        doublesInMenu.forEach((recipe) => cardTemplate(recipe));
 
 
     } else {
@@ -108,12 +129,14 @@ searchinMenu.addEventListener('input', searchInMenu);
 searchinMenu2.addEventListener('input', searchInMenu);
 searchinMenu3.addEventListener('input', searchInMenu);
 
-//________________________________________________________
+// _____________________________________
 
 
-//   faire une fonction pour les tags
 const searchBar = document.getElementById('search_bar');
 searchBar.addEventListener('input', searchHandler);
+
+// CHARGEMENT DES DONNEES POUR LES CARDS ET LES LISTES MENUS
+
 function loadData () {
     resetDropdown();
     const ingredientsFlat = recipes.map((r) => r.ingredients.map((i) => i)).flat();
@@ -125,6 +148,8 @@ function loadData () {
 
     recipes.forEach((recipe) => cardTemplate(recipe));
 }
+
+// AFFICHAGE DES INGREDIENTS DANS LES CARDS
 
 export function listIngredient(ingredients) {
     const liste = document.createElement("ul");
@@ -161,6 +186,8 @@ export function listIngredient(ingredients) {
     });
     return liste;
 }
+
+// CREATION DES CARDS
 
 export function cardTemplate (recipe)  {
     const { image, name, description, ingredients, time, quantity, unit} = recipe;
@@ -218,13 +245,37 @@ export function cardTemplate (recipe)  {
     return article;
 }
 
-loadData();
+// loadData();
+
+ // CREATION ET GESTION DES TAGS
+
 const allBlocsTags = document.querySelector('.allBlocsTags');
 
 const DoublesTags = new Set();
+// const DoublesTags = Array.from(new Set(finalRecipes).values());
 
 function tag(event) {
+    console.log("Tag clicked");
     const valueLiMenu = event.target.textContent.toLowerCase();
+    // const DoublesTags = Array.from(new Set(finalRecipes).values());
+
+    const filteredRecipes = recipes.filter((recipe) => {
+        return (
+            recipe.name.toLowerCase().includes(valueLiMenu) ||
+            recipe.description.toLowerCase().includes(valueLiMenu) ||
+            recipe.ingredients.some((ingredient) => ingredient.ingredient.toLowerCase().includes(valueLiMenu)) ||
+            recipe.appliance.toLowerCase().includes(valueLiMenu) ||
+            recipe.ustensils.some((ustensil) => ustensil.toLowerCase().includes(valueLiMenu))
+        );
+    });
+    console.log(filteredRecipes);
+    
+    // finalRecipes = [...searchResultsName, ...searchResultsDesc, ...searchResultsIng, ...listIng, ...listApp,...listUst];
+    
+    resetCards();
+
+    filteredRecipes.forEach((recipe) => cardTemplate(recipe));
+
     if (!DoublesTags.has(valueLiMenu)) {
 
         DoublesTags.add(valueLiMenu);
@@ -247,9 +298,22 @@ function tag(event) {
 
         btnClose.addEventListener('click', () => {
             blocTag_menu.style.display = 'none';
+            DoublesTags.delete(valueLiMenu);
+            resetCards();
+            loadData();
+            
         });
-    }
+
+        // finalRecipes.forEach((recipe) => cardTemplate(recipe));
+
+    } 
+    // else {
+    //     resetCards();
+    //     loadData();
+    // }
 }
+
+// CREATION DES ELEMENTS DANS LES LISTES MENUS
 
 export function clickOnElement(){
     console.log("dggdg");
@@ -259,3 +323,5 @@ export function clickOnElement(){
         li.addEventListener('click', tag);
     });
 }
+
+loadData();

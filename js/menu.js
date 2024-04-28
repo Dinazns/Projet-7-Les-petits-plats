@@ -9,6 +9,8 @@ export const ul_ingMenu1 = document.getElementById("ingredients-list");
 export const ul_ingMenu2 = document.getElementById("appareils-list");
 export const ul_ingMenu3 = document.getElementById("ustensils-list");
 
+// AFFICHAGE DES INGREDIENTS, APPAREILS ET USTENSILS DANS LES LISTES MENUS
+
 export function loadDropdownElements(elements, type) {
     const removeDuplicates = Array.from(new Set(elements).values());
     const finalResults= new Set();
