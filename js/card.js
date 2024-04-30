@@ -5,6 +5,7 @@ import { ul_ingMenu1, ul_ingMenu2, ul_ingMenu3 } from "./menu.js";
 export const appArrayResult = [];
 
 let finalRecipes = []; 
+console.log("Let finalRecipes :", finalRecipes);
 
 let searchResultsName = [];
 let searchResultsDesc = [];
@@ -42,6 +43,7 @@ const searchHandler = function(e) {
 
         // finalRecipes = [...searchResultsName, ...searchResultsDesc, ...searchResultsIng];        
         finalRecipes = [...searchResultsName, ...searchResultsDesc, ...searchResultsIng]; 
+        console.log("finalRecipes searchHandler :", finalRecipes);
         const removeDoubles = Array.from(new Set(finalRecipes).values());
 
         const ingredientsFlat = removeDoubles.map((r) => r.ingredients.map((i) => i)).flat();
@@ -81,7 +83,7 @@ function searchInMenu (el) {
         finalRecipes = [...listIng, ...listApp,...listUst];
 
         // console.log(finalSearchMenu);
-        console.log(finalRecipes);
+        console.log("finalRecipes searchInMenu :", finalRecipes);
 
         // const doublesInMenu = Array.from(new Set(finalSearchMenu).values());
         const doublesInMenu = Array.from(new Set(finalRecipes).values());
@@ -98,7 +100,7 @@ function searchInMenu (el) {
         loadDropdownElements(ustensilsFlatt, "ustensils");
         loadDropdownElements(appliancess, "appliance");
 
-
+        clickOnElement();
         const listItems = document.querySelectorAll('.li_menu');
 
         listItems.forEach(item => {
@@ -259,7 +261,8 @@ function tag(event) {
     const valueLiMenu = event.target.textContent.toLowerCase();
     // const DoublesTags = Array.from(new Set(finalRecipes).values());
 
-    const filteredRecipes = recipes.filter((recipe) => {
+    const filteredRecipes = finalRecipes.filter((recipe) => { 
+        // recipes le changer par finalRecipes
         return (
             recipe.name.toLowerCase().includes(valueLiMenu) ||
             recipe.description.toLowerCase().includes(valueLiMenu) ||
@@ -269,6 +272,7 @@ function tag(event) {
         );
     });
     console.log(filteredRecipes);
+    console.log("finalRecipes de Tag :", finalRecipes);
     
     // finalRecipes = [...searchResultsName, ...searchResultsDesc, ...searchResultsIng, ...listIng, ...listApp,...listUst];
     
@@ -301,6 +305,7 @@ function tag(event) {
             DoublesTags.delete(valueLiMenu);
             resetCards();
             loadData();
+            
             
         });
 
