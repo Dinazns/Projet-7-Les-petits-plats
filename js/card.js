@@ -57,6 +57,7 @@ const searchHandler = function(e) {
         loadDropdownElements(appliances, "appliance");
         clickOnElement();
         resetCards();
+
         
         removeDoubles.forEach((recipe) => cardTemplate(recipe));   
     } else {
@@ -191,9 +192,25 @@ export function listIngredient(ingredients) {
 
 // CREATION DES CARDS
 
+// const displayedRecipeIds = new Set();
+
+
+// function resetDisplayedRecipeIds() {
+//     displayedRecipeIds.clear();
+// }
+
+
 export function cardTemplate (recipe)  {
-    const { image, name, description, ingredients, time, quantity, unit} = recipe;
+    const {  image, name, description, ingredients, time, quantity, unit} = recipe;
     // console.log(ingredients);
+
+    // if (displayedRecipeIds.has(id)) {
+    //     return; // Si oui, ne pas afficher la recette
+    // }
+    // displayedRecipeIds.add(id);
+
+    // console.log("Recette sans doublons :", displayedRecipeIds);
+
     const article = document.querySelector(".all_cards");
     const card = document.createElement("div");
     card.className = "card";
@@ -261,7 +278,8 @@ function tag(event) {
     const valueLiMenu = event.target.textContent.toLowerCase();
     // const DoublesTags = Array.from(new Set(finalRecipes).values());
 
-    const filteredRecipes = finalRecipes.filter((recipe) => { 
+    const uniqueRecipes = new Set(finalRecipes);
+    finalRecipes = [...uniqueRecipes].filter((recipe) => { 
         // recipes le changer par finalRecipes
         return (
             recipe.name.toLowerCase().includes(valueLiMenu) ||
@@ -271,14 +289,14 @@ function tag(event) {
             recipe.ustensils.some((ustensil) => ustensil.toLowerCase().includes(valueLiMenu))
         );
     });
-    console.log(filteredRecipes);
+    console.log(uniqueRecipes);
     console.log("finalRecipes de Tag :", finalRecipes);
     
     // finalRecipes = [...searchResultsName, ...searchResultsDesc, ...searchResultsIng, ...listIng, ...listApp,...listUst];
     
     resetCards();
 
-    filteredRecipes.forEach((recipe) => cardTemplate(recipe));
+    finalRecipes.forEach((recipe) => cardTemplate(recipe));
 
     if (!DoublesTags.has(valueLiMenu)) {
 
@@ -304,8 +322,7 @@ function tag(event) {
             blocTag_menu.style.display = 'none';
             DoublesTags.delete(valueLiMenu);
             resetCards();
-            loadData();
-            
+            loadData();            
             
         });
 
