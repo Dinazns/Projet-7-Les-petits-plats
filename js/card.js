@@ -17,8 +17,8 @@ let listUst = [];
 function resetCards (){
     console.log("Reset cards and tags");
     const all_cards = document.querySelectorAll(".all_cards .card");
-    for (let i = 0; i < all_cards.length; i++) {
-        all_cards[i].remove();
+    for (let card of all_cards) {
+        card.remove();
     }
 };
 
