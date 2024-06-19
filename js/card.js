@@ -219,7 +219,7 @@ export function listIngredient(ingredients) {
     const liste = document.createElement("ul");
     liste.className = "all_ingredients";
 
-    ingredients.forEach((ingredient) => {
+    for (let ingredient of ingredients) {
         const div_elementList = document.createElement("div");
         div_elementList.className = "one_blocIng";
         
@@ -230,31 +230,24 @@ export function listIngredient(ingredients) {
         quantity_unit.className = "quantity_unit";
 
         elementList.textContent = ingredient.ingredient;
-        
-        // On vérifie si l'unité est définie
+
         if (ingredient.unit) {
             quantity_unit.textContent = ingredient.quantity + ' ' + ingredient.unit;
         } else {
-            // Si l'unité n'est pas définie, on affiche simplement la quantité
             quantity_unit.textContent = ingredient.quantity;
         }
 
         div_elementList.appendChild(elementList);
         div_elementList.appendChild(quantity_unit);
-        
-        /*
-        liste.appendChild(elementList);
-        liste.appendChild(quantity_unit);
-        */
         liste.appendChild(div_elementList);
-    });
+    }
     return liste;
 }
+
 
 // CREATION DES CARDS
 
 // const displayedRecipeIds = new Set();
-
 
 // function resetDisplayedRecipeIds() {
 //     displayedRecipeIds.clear();
@@ -329,82 +322,75 @@ export function cardTemplate (recipe)  {
 
  // CREATION ET GESTION DES TAGS
 
-const allBlocsTags = document.querySelector('.allBlocsTags');
-
-const DoublesTags = new Set();
-// const DoublesTags = Array.from(new Set(finalRecipes).values());
-
-function tag(event) {
-    console.log("Tag clicked");
-    const valueLiMenu = event.target.textContent.toLowerCase();
-    // const DoublesTags = Array.from(new Set(finalRecipes).values());
-
-    const uniqueRecipes = new Set(finalRecipes);
-    finalRecipes = [...uniqueRecipes].filter((recipe) => { 
-        // recipes le changer par finalRecipes
-        return (
-            recipe.name.toLowerCase().includes(valueLiMenu) ||
-            recipe.description.toLowerCase().includes(valueLiMenu) ||
-            recipe.ingredients.some((ingredient) => ingredient.ingredient.toLowerCase().includes(valueLiMenu)) ||
-            recipe.appliance.toLowerCase().includes(valueLiMenu) ||
-            recipe.ustensils.some((ustensil) => ustensil.toLowerCase().includes(valueLiMenu))
-        );
-    });
-    console.log(uniqueRecipes);
-    console.log("finalRecipes de Tag :", finalRecipes);
-    
-    // finalRecipes = [...searchResultsName, ...searchResultsDesc, ...searchResultsIng, ...listIng, ...listApp,...listUst];
-    
-    resetCards();
-
-    finalRecipes.forEach((recipe) => cardTemplate(recipe));
-
-    if (!DoublesTags.has(valueLiMenu)) {
-
-        DoublesTags.add(valueLiMenu);
-    
-        const blocTag_menu = document.createElement('div');
-        blocTag_menu.className = 'blocTag_menu';
-
-        const liTag_menu = document.createElement('p');
-        liTag_menu.className = 'liTag_menu';
-        liTag_menu.textContent = valueLiMenu;
-
-        const btnClose = document.createElement('button');
-        btnClose.className = 'btnClose';
-        btnClose.textContent = 'x';
-
-        blocTag_menu.appendChild(liTag_menu);
-        blocTag_menu.appendChild(btnClose);
-
-        allBlocsTags.appendChild(blocTag_menu);
-
-        btnClose.addEventListener('click', () => {
-            blocTag_menu.style.display = 'none';
-            DoublesTags.delete(valueLiMenu);
-            resetCards();
-            loadData();            
-            
-        });
-
-        // finalRecipes.forEach((recipe) => cardTemplate(recipe));
-
-    } 
-    // else {
-    //     resetCards();
-    //     loadData();
-    // }
-}
-
-// CREATION DES ELEMENTS DANS LES LISTES MENUS
-
-export function clickOnElement(){
-    console.log("dggdg");
-    const li_menu = document.querySelectorAll('.li_menu');
-
-    li_menu.forEach(li => {
-        li.addEventListener('click', tag);
-    });
-}
-
-loadData();
+ const allBlocsTags = document.querySelector('.allBlocsTags');
+ const DoublesTags = new Set();
+ 
+ function tag(event) {
+     console.log("Tag clicked");
+     const valueLiMenu = event.target.textContent.toLowerCase();
+ 
+     const uniqueRecipes = new Set(finalRecipes);
+     const filteredRecipes = [];
+ 
+     for (let recipe of uniqueRecipes) {
+         if (
+             recipe.name.toLowerCase().includes(valueLiMenu) ||
+             recipe.description.toLowerCase().includes(valueLiMenu) ||
+             recipe.ingredients.some((ingredient) => ingredient.ingredient.toLowerCase().includes(valueLiMenu)) ||
+             recipe.appliance.toLowerCase().includes(valueLiMenu) ||
+             recipe.ustensils.some((ustensil) => ustensil.toLowerCase().includes(valueLiMenu))
+         ) {
+             filteredRecipes.push(recipe);
+         }
+     }
+ 
+     finalRecipes = filteredRecipes;
+     console.log(uniqueRecipes);
+     console.log("finalRecipes de Tag :", finalRecipes);
+     
+     resetCards();
+ 
+     for (let recipe of finalRecipes) {
+         cardTemplate(recipe);
+     }
+ 
+     if (!DoublesTags.has(valueLiMenu)) {
+         DoublesTags.add(valueLiMenu);
+ 
+         const blocTag_menu = document.createElement('div');
+         blocTag_menu.className = 'blocTag_menu';
+ 
+         const liTag_menu = document.createElement('p');
+         liTag_menu.className = 'liTag_menu';
+         liTag_menu.textContent = valueLiMenu;
+ 
+         const btnClose = document.createElement('button');
+         btnClose.className = 'btnClose';
+         btnClose.textContent = 'x';
+ 
+         blocTag_menu.appendChild(liTag_menu);
+         blocTag_menu.appendChild(btnClose);
+         allBlocsTags.appendChild(blocTag_menu);
+ 
+         btnClose.addEventListener('click', () => {
+             blocTag_menu.style.display = 'none';
+             DoublesTags.delete(valueLiMenu);
+             resetCards();
+             loadData();
+         });
+     }
+ }
+ 
+ // Création des éléments dans les listes menus
+ 
+ export function clickOnElement() {
+     console.log("dggdg");
+     const li_menu = document.querySelectorAll('.li_menu');
+ 
+     for (let li of li_menu) {
+         li.addEventListener('click', tag);
+     }
+ }
+ 
+ loadData();
+ 
