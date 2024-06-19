@@ -35,19 +35,44 @@ const searchHandler = function(e) {
     const word = e.target.value.toLowerCase() ?? "";
 
     if (word.length >= 3) {
-         searchResultsName = recipes.filter((r) => r.name.toLowerCase().includes(word));
-         searchResultsDesc = recipes.filter((r) => r.description.toLowerCase().includes(word));
-         searchResultsIng = recipes.filter(r => r.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(word)));
+         searchResultsName = [];
+         searchResultsDesc = [];
+         searchResultsIng = [];
         // console.log(ingredient.ingredient.toLowerCase());
 
-        // finalRecipes = [...searchResultsName, ...searchResultsDesc, ...searchResultsIng];        
+        for (let r of recipes) {
+            if (r.name.toLowerCase().includes(word)) {
+                searchResultsName.push(r);
+            }
+            if (r.description.toLowerCase().includes(word)) {
+                searchResultsDesc.push(r);
+            }
+            for ( let ingredient of r.ingredients) {
+                if (ingredient.ingredient.toLowerCase().includes(word)) {
+                    searchResultsIng.push(r);
+                    break
+                }
+            }
+        }
+
+        
         finalRecipes = [...searchResultsName, ...searchResultsDesc, ...searchResultsIng]; 
         console.log("finalRecipes searchHandler :", finalRecipes);
         const removeDoubles = Array.from(new Set(finalRecipes).values());
 
-        const ingredientsFlat = removeDoubles.map((r) => r.ingredients.map((i) => i)).flat();
-        const ustensilsFlat = removeDoubles.map((r) => r.ustensils.map((u) => u)).flat();
-        const appliances = removeDoubles.map((r) => r.appliance);
+        const ingredientsFlat = [];
+        const ustensilsFlat = [];
+        const appliances = [];
+
+        for (let r of removeDoubles) {
+            for (let i of r.ingredients) {
+                ingredientsFlat.push(i);
+            }
+            for (let u of r.ustensils) {
+                ustensilsFlat.push(u);
+            }
+            appliances.push(r.appliance);
+        }
 
         resetDropdown();
         
@@ -57,8 +82,10 @@ const searchHandler = function(e) {
         clickOnElement();
         resetCards();
 
+        for (let recipe of removeDoubles) {
+            cardTemplate(recipe);
+        }
         
-        removeDoubles.forEach((recipe) => cardTemplate(recipe));   
     } else {
         resetCards();
         loadData();
