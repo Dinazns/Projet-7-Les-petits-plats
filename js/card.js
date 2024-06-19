@@ -190,14 +190,27 @@ searchBar.addEventListener('input', searchHandler);
 
 function loadData () {
     resetDropdown();
-    const ingredientsFlat = recipes.map((r) => r.ingredients.map((i) => i)).flat();
-    const ustensilsFlat = recipes.map((r) => r.ustensils.map((u) => u)).flat();
-    const appliances = recipes.map((r) => r.appliance);
+    const ingredientsFlat = [];
+    const ustensilsFlat = [];
+    const appliances = [];
+
+    for (let r of recipes) {
+        for (let i of r.ingredients) {
+            ingredientsFlat.push(i);
+        }
+        for (let u of r.ustensils) {
+            ustensilsFlat.push(u);
+        }
+        appliances.push(r.appliance);
+    }
+
     loadDropdownElements(ingredientsFlat, "ingredient");
     loadDropdownElements(ustensilsFlat, "ustensils");
     loadDropdownElements(appliances, "appliance");
 
-    recipes.forEach((recipe) => cardTemplate(recipe));
+    for (let recipe of recipes) {
+        cardTemplate(recipe);
+    }
 }
 
 // AFFICHAGE DES INGREDIENTS DANS LES CARDS
