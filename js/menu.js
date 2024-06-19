@@ -51,11 +51,6 @@ function createElement (item) {
     return li;
 };
 
-// export function resetElementLi (){
-//     Array.from(ul_ingMenu1).forEach((li) => li.remove());
-//     Array.from(ul_ingMenu2).forEach((li) => li.remove());
-//     Array.from(ul_ingMenu3).forEach((li) => li.remove());
-// };
 
 
 

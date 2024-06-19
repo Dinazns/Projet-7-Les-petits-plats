@@ -17,10 +17,9 @@ let listUst = [];
 function resetCards (){
     console.log("Reset cards and tags");
     const all_cards = document.querySelectorAll(".all_cards .card");
-    Array.from(all_cards).forEach((card) => card.remove());
-
-    // allBlocsTags.innerHTML = '';
-    // DoublesTags.clear();
+    for (let i = 0; i < all_cards.length; i++) {
+        all_cards[i].remove();
+    }
 };
 
 function resetDropdown() {
