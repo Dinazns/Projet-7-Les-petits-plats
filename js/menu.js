@@ -15,23 +15,28 @@ export function loadDropdownElements(elements, type) {
     const removeDuplicates = Array.from(new Set(elements).values());
     const finalResults= new Set();
 
-    removeDuplicates.forEach((e) => {
+    for (let i = 0; i < removeDuplicates.length; i++) {
+        const e = removeDuplicates[i];
         const name = isObject(e) ? e[type].toLowerCase() : e.toLowerCase(); // si c'est un objet, je récup le type de l'objet sinn je prends l'élement tel quel
         finalResults.add(name); // ajoute le nom ou l'élément lui mm si c'est pas un objet à finalResults
-    });
+    };
     
     switch(type) {
         case "ingredient":
-            finalResults.forEach((e) => ul_ingMenu1.appendChild(createElement(e)));
+            for (let e of finalResults) {
+                ul_ingMenu1.appendChild(createElement(e));
+            }
             break;
 
         case "ustensils":
-            finalResults.forEach((e) => ul_ingMenu3.appendChild(createElement(e)));
-            break;
+            for (let e of finalResults) {
+                ul_ingMenu3.appendChild(createElement(e));
+            }            break;
         
         case "appliance":
-            finalResults.forEach((e) => ul_ingMenu2.appendChild(createElement(e)));
-            break;
+            for (let e of finalResults) {
+                ul_ingMenu2.appendChild(createElement(e));
+            }            break;
 
         default: break;
     }
