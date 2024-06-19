@@ -31,12 +31,14 @@ export function loadDropdownElements(elements, type) {
         case "ustensils":
             for (let e of finalResults) {
                 ul_ingMenu3.appendChild(createElement(e));
-            }            break;
+            }            
+            break;
         
         case "appliance":
             for (let e of finalResults) {
                 ul_ingMenu2.appendChild(createElement(e));
-            }            break;
+            }            
+            break;
 
         default: break;
     }
