@@ -333,13 +333,30 @@ export function cardTemplate (recipe)  {
      const filteredRecipes = [];
  
      for (let recipe of uniqueRecipes) {
-         if (
-             recipe.name.toLowerCase().includes(valueLiMenu) ||
-             recipe.description.toLowerCase().includes(valueLiMenu) ||
-             recipe.ingredients.some((ingredient) => ingredient.ingredient.toLowerCase().includes(valueLiMenu)) ||
-             recipe.appliance.toLowerCase().includes(valueLiMenu) ||
-             recipe.ustensils.some((ustensil) => ustensil.toLowerCase().includes(valueLiMenu))
-         ) {
+        let ingredientMatch = false;
+        let ustensilMatch = false;
+
+        for (let ingredient of recipe.ingredients) {
+            if (ingredient.ingredient.toLowerCase().includes(valueLiMenu)) {
+                ingredientMatch = true;
+                break;
+            }
+        }
+
+        for (let ustensil of recipe.ustensils) {
+            if (ustensil.toLowerCase().includes(valueLiMenu)) {
+                ustensilMatch = true;
+                break;
+            }
+        }
+
+        if (
+            recipe.name.toLowerCase().includes(valueLiMenu) ||
+            recipe.description.toLowerCase().includes(valueLiMenu) ||
+            ingredientMatch ||
+            recipe.appliance.toLowerCase().includes(valueLiMenu) ||
+            ustensilMatch
+        ) {
              filteredRecipes.push(recipe);
          }
      }
