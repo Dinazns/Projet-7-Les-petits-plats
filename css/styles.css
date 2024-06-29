@@ -67,6 +67,17 @@ body {
     width: 954px;
 }
 
+#no-results-message {
+    display: flex;
+    justify-content: center;
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #FFD15B;
+    font-size: 20px;
+    padding: 40px;
+}
+
 input {
     font-size: 16px;
 }

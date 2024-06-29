@@ -35,6 +35,9 @@ const searchHandler = function(e) {
     console.log(e.target.value);
     const word = e.target.value.toLowerCase() ?? "";
 
+    const noResultsMessage = document.getElementById('no-results-message');
+    noResultsMessage.textContent = '';
+
     if (word.length >= 3) {
          searchResultsName = recipes.filter((r) => r.name.toLowerCase().includes(word));
          searchResultsDesc = recipes.filter((r) => r.description.toLowerCase().includes(word));
@@ -45,6 +48,10 @@ const searchHandler = function(e) {
         finalRecipes = [...searchResultsName, ...searchResultsDesc, ...searchResultsIng]; 
         console.log("finalRecipes searchHandler :", finalRecipes);
         const removeDoubles = Array.from(new Set(finalRecipes).values());
+
+        if (removeDoubles.length === 0) {
+            noResultsMessage.textContent = `Aucune recette ne contient ‘${word}’ vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
+        }
 
         const ingredientsFlat = removeDoubles.map((r) => r.ingredients.map((i) => i)).flat();
         const ustensilsFlat = removeDoubles.map((r) => r.ustensils.map((u) => u)).flat();
@@ -72,6 +79,9 @@ function searchInMenu (el) {
     console.log(el.target.value);
     const inputMenuWord = el.target.value.toLowerCase() ?? "";
 
+    const noResultsMessage = document.getElementById('no-results-message');
+    noResultsMessage.textContent = '';
+
     if (inputMenuWord.length >=3) {
 
          listIng = recipes.filter(r => r.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(inputMenuWord)));        
@@ -88,6 +98,10 @@ function searchInMenu (el) {
 
         // const doublesInMenu = Array.from(new Set(finalSearchMenu).values());
         const doublesInMenu = Array.from(new Set(finalRecipes).values());
+
+        if (doublesInMenu.length === 0) {
+            noResultsMessage.textContent = `Aucune recette ne contient ‘${inputMenuWord}’ vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
+        }
 
         const ingredientsFlatt = doublesInMenu.map((r) => r.ingredients.map((i) => i)).flat();
         const ustensilsFlatt = doublesInMenu.map((r) => r.ustensils.map((u) => u)).flat();
