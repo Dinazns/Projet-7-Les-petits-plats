@@ -4,7 +4,7 @@ import { ul_ingMenu1, ul_ingMenu2, ul_ingMenu3 } from "./menu.js";
 
 export const appArrayResult = [];
 
-let finalRecipes = []; 
+let finalRecipes = [...recipes]; 
 console.log("Let finalRecipes :", finalRecipes);
 
 let searchResultsName = [];
@@ -407,6 +407,13 @@ export function cardTemplate (recipe)  {
              blocTag_menu.style.display = 'none';
              DoublesTags.delete(valueLiMenu);
              resetCards();
+            //  const currentTags = Array.from(DoublesTags);
+            //  finalRecipes = recipes;
+
+            //  for (let tag of currentTags) {
+            //     const event = { target: { textContent: tag }};
+            //     tag(event);
+            //  }
              loadData();
          });
      }
