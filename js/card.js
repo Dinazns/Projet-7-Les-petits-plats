@@ -101,104 +101,375 @@ const searchHandler = function(e) {
 
 // RECHERCHE AVANCEES DANS LES LISTES MENUS__________________________________
 
-function searchInMenu (el) {
+// function searchInMenu (el) {
+//     console.log(el.target.value);
+//     console.log(el.target.id);
+//     const inputMenuWord = el.target.value.toLowerCase() ?? "";
+
+//     const noResultsMessage = document.getElementById('no-results-message');
+//     noResultsMessage.textContent = '';
+
+//     if (inputMenuWord.length >=3) {
+
+//         listIng = [];
+//         listApp = [];
+//         listUst = [];
+
+//         // si l'id est 
+//         for (let r of recipes) {
+//             for (let ingredient of r.ingredients) {
+//                 if (ingredient.ingredient.toLowerCase().includes(inputMenuWord)) {
+//                     listIng.push(r);
+//                     break;
+//                 }
+//             }
+
+//             if (r.appliance.toLowerCase().includes(inputMenuWord)) {
+//                 listApp.push(r);
+//             }
+//             for (let ustensil of r.ustensils) {
+//                 if (ustensil.toLowerCase().includes(inputMenuWord)) {
+//                     listUst.push(r);
+//                     break
+//                 }
+//             }
+//         }
+
+//         // const finalSearchMenu = [...listIng, ...listApp,...listUst];
+//         finalRecipes = [...listIng, ...listApp,...listUst];
+
+//         // console.log(finalSearchMenu);
+//         console.log("finalRecipes searchInMenu :", finalRecipes);
+
+//         // const doublesInMenu = Array.from(new Set(finalSearchMenu).values());
+//         const doublesInMenu = Array.from(new Set(finalRecipes).values());
+
+//         if (doublesInMenu.length === 0) {
+//             noResultsMessage.textContent = `Aucune recette ne contient ‘${inputMenuWord}’ vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
+//         }
+
+//         const ingredientsFlatt = [];
+//         const ustensilsFlatt = [];
+//         const appliancess = [];
+
+//         for (let r of doublesInMenu) {
+//             for (let i of r.ingredients) {
+//                 ingredientsFlatt.push(i);
+//             }
+//             for (let u of r.ustensils) {
+//                 ustensilsFlatt.push(u);
+//             }
+//             appliancess.push(r.appliance);
+//         }
+
+//         resetDropdown();
+//         resetCards();
+
+//         loadDropdownElements(ingredientsFlatt, "ingredient");
+//         loadDropdownElements(ustensilsFlatt, "ustensils");
+//         loadDropdownElements(appliancess, "appliance");
+
+//         clickOnElement();
+//         const listItems = document.querySelectorAll('.li_menu');
+
+//         for (let item of listItems) {
+//             const text = item.textContent.trim().toLowerCase();
+//             item.style.display = text.includes(inputMenuWord) ? 'block' : 'none';
+//         }
+
+//         for (let recipe of doublesInMenu) {
+//             cardTemplate(recipe);
+//         }
+
+
+//     } else {
+//         resetCards();
+//         loadData();
+//     }
+
+// };
+// ____________________________________________________
+// function searchInMenu(el) {
+//     console.log(el.target.value);
+//     console.log(el.target.id);
+//     const inputMenuWord = el.target.value.toLowerCase() ?? "";
+
+//     const noResultsMessage = document.getElementById('no-results-message');
+//     noResultsMessage.textContent = '';
+
+//     if (inputMenuWord.length >= 3) {
+//         listIng = [];
+//         listApp = [];
+//         listUst = [];
+
+//         // Identifier le menu à filtrer en fonction de l'ID de l'élément déclencheur
+//         if (el.target.id === 'search-in-menu1') {
+//             for (let r of recipes) {
+//                 for (let ingredient of r.ingredients) {
+//                     if (ingredient.ingredient.toLowerCase().includes(inputMenuWord)) {
+//                         listIng.push(r);
+//                         break;
+//                     }
+//                 }
+//             }
+//             finalRecipes = listIng;
+//         } else if (el.target.id === 'search-in-menu2') {
+//             for (let r of recipes) {
+//                 if (r.appliance.toLowerCase().includes(inputMenuWord)) {
+//                     listApp.push(r);
+//                 }
+//             }
+//             finalRecipes = listApp;
+//         } else if (el.target.id === 'search-in-menu3') {
+//             for (let r of recipes) {
+//                 for (let ustensil of r.ustensils) {
+//                     if (ustensil.toLowerCase().includes(inputMenuWord)) {
+//                         listUst.push(r);
+//                         break;
+//                     }
+//                 }
+//             }
+//             finalRecipes = listUst;
+//         }
+
+//         const uniqueRecipes = [];
+//         const recipeSet = new Set();
+
+//         for (let recipe of finalRecipes) {
+//             if (!recipeSet.has(recipe)) {
+//                 recipeSet.add(recipe);
+//                 uniqueRecipes.push(recipe);
+//             }
+//         }
+
+//         if (uniqueRecipes.length === 0) {
+//             noResultsMessage.textContent = `Aucune recette ne contient ‘${inputMenuWord}’ vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
+//         }
+
+//         const ingredientsFlat = [];
+//         const ustensilsFlat = [];
+//         const appliances = [];
+
+//         for (let r of uniqueRecipes) {
+//             for (let i of r.ingredients) {
+//                 ingredientsFlat.push(i);
+//             }
+//             for (let u of r.ustensils) {
+//                 ustensilsFlat.push(u);
+//             }
+//             appliances.push(r.appliance);
+//         }
+
+//         resetDropdown();
+//         resetCards();
+
+//         loadDropdownElements(ingredientsFlat, "ingredient");
+//         loadDropdownElements(ustensilsFlat, "ustensils");
+//         loadDropdownElements(appliances, "appliance");
+
+//         clickOnElement();
+//         const listItems = document.querySelectorAll('.li_menu');
+
+//         for (let item of listItems) {
+//             const text = item.textContent.trim().toLowerCase();
+//             item.style.display = text.includes(inputMenuWord) ? 'block' : 'none';
+//         }
+
+//         for (let recipe of uniqueRecipes) {
+//             cardTemplate(recipe);
+//         }
+//     } else {
+//         resetCards();
+//         loadData();
+//     }
+// }
+
+// __________________________________
+
+
+// function searchInMenu(el) {
+//     console.log(el.target.value);
+//     console.log(el.target.id);
+//     const inputMenuWord = el.target.value.toLowerCase() ?? "";
+
+//     const noResultsMessage = document.getElementById('no-results-message');
+//     noResultsMessage.textContent = '';
+
+//     if (inputMenuWord.length >= 3) {
+//         let menuResults = [];
+
+//         if (el.target.id === 'search-in-menu1') {
+//             listIng = [];
+//             const ingredientsFlat = new Set();
+//             for (let r of recipes) {
+//                 for (let ingredient of r.ingredients) {
+//                     if (ingredient.ingredient.toLowerCase().includes(inputMenuWord)) {
+//                         ingredientsFlat.add(ingredient.ingredient);
+//                     }
+//                 }
+//             }
+//             menuResults = [...ingredientsFlat];
+//             updateMenuList('ingredients-list', menuResults, inputMenuWord);
+//         } else if (el.target.id === 'search-in-menu2') {
+//             listApp = [];
+//             const appliances = new Set();
+//             for (let r of recipes) {
+//                 if (r.appliance.toLowerCase().includes(inputMenuWord)) {
+//                     appliances.add(r.appliance);
+//                 }
+//             }
+//             menuResults = [...appliances];
+//             updateMenuList('appareils-list', menuResults, inputMenuWord);
+//         } else if (el.target.id === 'search-in-menu3') {
+//             listUst = [];
+//             const ustensilsFlat = new Set();
+//             for (let r of recipes) {
+//                 for (let ustensil of r.ustensils) {
+//                     if (ustensil.toLowerCase().includes(inputMenuWord)) {
+//                         ustensilsFlat.add(ustensil);
+//                     }
+//                 }
+//             }
+//             menuResults = [...ustensilsFlat];
+//             updateMenuList('ustensils-list', menuResults, inputMenuWord);
+//         }
+
+//         if (menuResults.length === 0) {
+//             noResultsMessage.textContent = `Aucun élément ne contient ‘${inputMenuWord}’ vous pouvez chercher « citron », « four », etc.`;
+//         }
+//     }
+// }
+
+// function updateMenuList(menuId, items, searchQuery) {
+//     const menuList = document.getElementById(menuId);
+//     menuList.innerHTML = '';
+
+//     for (let item of items) {
+//         const listItem = document.createElement('li');
+//         listItem.className = 'li_menu';
+//         listItem.textContent = item; // Adjust according to what you want to display
+//         if (item.toLowerCase().includes(searchQuery)) {
+//             listItem.style.display = 'block';
+//         } else {
+//             listItem.style.display = 'none';
+//         }
+//         menuList.appendChild(listItem);
+//     }
+// }
+
+function searchInMenu(el) {
     console.log(el.target.value);
+    console.log(el.target.id);
     const inputMenuWord = el.target.value.toLowerCase() ?? "";
 
     const noResultsMessage = document.getElementById('no-results-message');
     noResultsMessage.textContent = '';
 
-    if (inputMenuWord.length >=3) {
+    if (inputMenuWord.length >= 3) {
+        let menuResults = new Set();
 
-        listIng = [];
-        listApp = [];
-        listUst = [];
-
-        for (let r of recipes) {
-            for (let ingredient of r.ingredients) {
-                if (ingredient.ingredient.toLowerCase().includes(inputMenuWord)) {
-                    listIng.push(r);
-                    break;
+        if (el.target.id === 'search-in-menu1') {
+            for (let r of recipes) {
+                for (let ingredient of r.ingredients) {
+                    if (ingredient.ingredient.toLowerCase().includes(inputMenuWord)) {
+                        menuResults.add(r);
+                        break;
+                    }
                 }
             }
-
-            if (r.appliance.toLowerCase().includes(inputMenuWord)) {
-                listApp.push(r);
-            }
-            for (let ustensil of r.ustensils) {
-                if (ustensil.toLowerCase().includes(inputMenuWord)) {
-                    listUst.push(r);
-                    break
+            updateMenuList('ingredients-list', Array.from(menuResults), inputMenuWord, 'ingredient');
+        } else if (el.target.id === 'search-in-menu2') {
+            for (let r of recipes) {
+                if (r.appliance.toLowerCase().includes(inputMenuWord)) {
+                    menuResults.add(r);
                 }
             }
+            updateMenuList('appareils-list', Array.from(menuResults), inputMenuWord, 'appliance');
+        } else if (el.target.id === 'search-in-menu3') {
+            for (let r of recipes) {
+                for (let ustensil of r.ustensils) {
+                    if (ustensil.toLowerCase().includes(inputMenuWord)) {
+                        menuResults.add(r);
+                        break;
+                    }
+                }
+            }
+            updateMenuList('ustensils-list', Array.from(menuResults), inputMenuWord, 'ustensil');
         }
 
-        // const finalSearchMenu = [...listIng, ...listApp,...listUst];
-        finalRecipes = [...listIng, ...listApp,...listUst];
-
-        // console.log(finalSearchMenu);
-        console.log("finalRecipes searchInMenu :", finalRecipes);
-
-        // const doublesInMenu = Array.from(new Set(finalSearchMenu).values());
-        const doublesInMenu = Array.from(new Set(finalRecipes).values());
-
-        if (doublesInMenu.length === 0) {
+        if (menuResults.size === 0) {
             noResultsMessage.textContent = `Aucune recette ne contient ‘${inputMenuWord}’ vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
         }
 
-        const ingredientsFlatt = [];
-        const ustensilsFlatt = [];
-        const appliancess = [];
-
-        for (let r of doublesInMenu) {
-            for (let i of r.ingredients) {
-                ingredientsFlatt.push(i);
-            }
-            for (let u of r.ustensils) {
-                ustensilsFlatt.push(u);
-            }
-            appliancess.push(r.appliance);
-        }
-
-        resetDropdown();
         resetCards();
-
-        loadDropdownElements(ingredientsFlatt, "ingredient");
-        loadDropdownElements(ustensilsFlatt, "ustensils");
-        loadDropdownElements(appliancess, "appliance");
-
-        clickOnElement();
-        const listItems = document.querySelectorAll('.li_menu');
-
-        for (let item of listItems) {
-            const text = item.textContent.trim().toLowerCase();
-            item.style.display = text.includes(inputMenuWord) ? 'block' : 'none';
-        }
-
-        for (let recipe of doublesInMenu) {
+        menuResults.forEach(recipe => {
             cardTemplate(recipe);
-        }
-
-
+        });
     } else {
         resetCards();
         loadData();
     }
+}
 
-};
+function updateMenuList(menuId, items, searchQuery, type) {
+    const menuList = document.getElementById(menuId);
+    menuList.innerHTML = '';
 
-const searchinMenu = document.getElementById("search-in-menu1");
+    const uniqueItems = new Set();
+
+    items.forEach(item => {
+        if (type === 'ingredient') {
+            item.ingredients.forEach(ingredient => {
+                if (ingredient.ingredient.toLowerCase().includes(searchQuery)) {
+                    uniqueItems.add(ingredient.ingredient);
+                }
+            });
+        } else if (type === 'appliance') {
+            if (item.appliance.toLowerCase().includes(searchQuery)) {
+                uniqueItems.add(item.appliance);
+            }
+        } else if (type === 'ustensil') {
+            item.ustensils.forEach(ustensil => {
+                if (ustensil.toLowerCase().includes(searchQuery)) {
+                    uniqueItems.add(ustensil);
+                }
+            });
+        }
+    });
+
+    uniqueItems.forEach(item => {
+        const listItem = document.createElement('li');
+        listItem.className = 'li_menu';
+        listItem.textContent = item;
+        menuList.appendChild(listItem);
+    });
+}
+
+const searchinMenu1 = document.getElementById("search-in-menu1");
 const searchinMenu2 = document.getElementById("search-in-menu2");
 const searchinMenu3 = document.getElementById("search-in-menu3");
-searchinMenu.addEventListener('input', searchInMenu);
+searchinMenu1.addEventListener('input', searchInMenu);
 searchinMenu2.addEventListener('input', searchInMenu);
 searchinMenu3.addEventListener('input', searchInMenu);
+
+
+
+
+
+
+// const searchinMenu = document.getElementById("search-in-menu1");
+// const searchinMenu2 = document.getElementById("search-in-menu2");
+// const searchinMenu3 = document.getElementById("search-in-menu3");
+// searchinMenu.addEventListener('input', searchInMenu);
+// searchinMenu2.addEventListener('input', searchInMenu);
+// searchinMenu3.addEventListener('input', searchInMenu);
 
 // _____________________________________
 
 
 const searchBar = document.getElementById('search_bar');
 searchBar.addEventListener('input', searchHandler);
+
 
 // CHARGEMENT DES DONNEES POUR LES CARDS ET LES LISTES MENUS
 
@@ -430,5 +701,8 @@ export function cardTemplate (recipe)  {
      }
  }
  
- loadData();
+//  window.onload = function () {
+//     loadData();
+// };
+loadData();
  
