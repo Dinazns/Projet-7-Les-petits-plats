@@ -5,7 +5,7 @@ import { ul_ingMenu1, ul_ingMenu2, ul_ingMenu3 } from "./menu.js";
 export const appArrayResult = [];
 
 let finalRecipes = [...recipes]; 
-console.log("Let finalRecipes :", finalRecipes);
+
 
 let searchResultsName = [];
 let searchResultsDesc = [];
@@ -372,7 +372,9 @@ function searchInMenu(el) {
             for (let r of recipes) {
                 for (let ingredient of r.ingredients) {
                     if (ingredient.ingredient.toLowerCase().includes(inputMenuWord)) {
+                        console.log(r);
                         menuResults.add(r);
+                
                         break;
                     }
                 }
@@ -402,9 +404,9 @@ function searchInMenu(el) {
         }
 
         resetCards();
-        menuResults.forEach(recipe => {
+        for (let recipe of menuResults) {
             cardTemplate(recipe);
-        });
+        }
     } else {
         resetCards();
         loadData();
@@ -417,32 +419,33 @@ function updateMenuList(menuId, items, searchQuery, type) {
 
     const uniqueItems = new Set();
 
-    items.forEach(item => {
+    for (let item of items) {
         if (type === 'ingredient') {
-            item.ingredients.forEach(ingredient => {
+            for (let ingredient of item.ingredients) {
                 if (ingredient.ingredient.toLowerCase().includes(searchQuery)) {
-                    uniqueItems.add(ingredient.ingredient);
+                    uniqueItems.add(ingredient.ingredient.toLowerCase());
+                    console.log(ingredient.ingredient);
                 }
-            });
+            }
         } else if (type === 'appliance') {
             if (item.appliance.toLowerCase().includes(searchQuery)) {
-                uniqueItems.add(item.appliance);
+                uniqueItems.add(item.appliance.toLowerCase());
             }
         } else if (type === 'ustensil') {
-            item.ustensils.forEach(ustensil => {
+            for (let ustensil of item.ustensils) {
                 if (ustensil.toLowerCase().includes(searchQuery)) {
-                    uniqueItems.add(ustensil);
+                    uniqueItems.add(ustensil.toLowerCase());
                 }
-            });
+            }
         }
-    });
+    }
 
-    uniqueItems.forEach(item => {
+    for (let item of uniqueItems) {
         const listItem = document.createElement('li');
         listItem.className = 'li_menu';
         listItem.textContent = item;
         menuList.appendChild(listItem);
-    });
+    }
 }
 
 const searchinMenu1 = document.getElementById("search-in-menu1");
@@ -693,7 +696,7 @@ export function cardTemplate (recipe)  {
  // Création des éléments dans les listes menus
  
  export function clickOnElement() {
-     console.log("dggdg");
+     
      const li_menu = document.querySelectorAll('.li_menu');
  
      for (let li of li_menu) {
