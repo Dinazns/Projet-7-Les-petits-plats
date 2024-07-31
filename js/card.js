@@ -411,6 +411,7 @@ function searchInMenu(el) {
         resetCards();
         loadData();
     }
+    clickOnElement();
 }
 
 function updateMenuList(menuId, items, searchQuery, type) {
@@ -446,6 +447,7 @@ function updateMenuList(menuId, items, searchQuery, type) {
         listItem.textContent = item;
         menuList.appendChild(listItem);
     }
+    clickOnElement();
 }
 
 const searchinMenu1 = document.getElementById("search-in-menu1");
@@ -456,23 +458,10 @@ searchinMenu2.addEventListener('input', searchInMenu);
 searchinMenu3.addEventListener('input', searchInMenu);
 
 
-
-
-
-
-// const searchinMenu = document.getElementById("search-in-menu1");
-// const searchinMenu2 = document.getElementById("search-in-menu2");
-// const searchinMenu3 = document.getElementById("search-in-menu3");
-// searchinMenu.addEventListener('input', searchInMenu);
-// searchinMenu2.addEventListener('input', searchInMenu);
-// searchinMenu3.addEventListener('input', searchInMenu);
-
 // _____________________________________
-
 
 const searchBar = document.getElementById('search_bar');
 searchBar.addEventListener('input', searchHandler);
-
 
 // CHARGEMENT DES DONNEES POUR LES CARDS ET LES LISTES MENUS
 
@@ -532,7 +521,6 @@ export function listIngredient(ingredients) {
     return liste;
 }
 
-
 // CREATION DES CARDS
 
 // const displayedRecipeIds = new Set();
@@ -540,7 +528,6 @@ export function listIngredient(ingredients) {
 // function resetDisplayedRecipeIds() {
 //     displayedRecipeIds.clear();
 // }
-
 
 export function cardTemplate (recipe)  {
     const {  image, name, description, ingredients, time, quantity, unit} = recipe;
@@ -688,7 +675,8 @@ export function cardTemplate (recipe)  {
             //     const event = { target: { textContent: tag }};
             //     tag(event);
             //  }
-             loadData();
+            //  loadData();
+            //  clickOnElement();
          });
      }
  }
