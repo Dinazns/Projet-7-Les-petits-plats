@@ -14,6 +14,13 @@ let listIng = [];
 let listApp = [];
 let listUst = [];
 
+function renderRecipes(recipeList) {
+    for (let recipe of recipeList) {
+        cardTemplate(recipe);
+    }
+}
+
+
 function resetCards (){
     console.log("Reset cards and tags");
     const all_cards = document.querySelectorAll(".all_cards .card");
@@ -89,9 +96,10 @@ const searchHandler = function(e) {
         clickOnElement();
         resetCards();
 
-        for (let recipe of removeDoubles) {
-            cardTemplate(recipe);
-        }
+        // for (let recipe of removeDoubles) {
+        //     cardTemplate(recipe);
+        // }
+        renderRecipes(removeDoubles);
         
     } else {
         resetCards();
@@ -404,9 +412,10 @@ function searchInMenu(el) {
         }
 
         resetCards();
-        for (let recipe of menuResults) {
-            cardTemplate(recipe);
-        }
+        // for (let recipe of menuResults) {
+        //     cardTemplate(recipe);
+        // }
+        renderRecipes(menuResults);
     } else {
         resetCards();
         loadData();
@@ -485,9 +494,10 @@ function loadData () {
     loadDropdownElements(ustensilsFlat, "ustensils");
     loadDropdownElements(appliances, "appliance");
 
-    for (let recipe of recipes) {
-        cardTemplate(recipe);
-    }
+    // for (let recipe of recipes) {
+    //     cardTemplate(recipe);
+    // }
+    renderRecipes(recipes);
 }
 
 // AFFICHAGE DES INGREDIENTS DANS LES CARDS
@@ -642,9 +652,10 @@ export function cardTemplate (recipe)  {
      
      resetCards();
  
-     for (let recipe of finalRecipes) {
-         cardTemplate(recipe);
-     }
+    //  for (let recipe of finalRecipes) {
+    //      cardTemplate(recipe);
+    //  }
+    renderRecipes(finalRecipes);
  
      if (!DoublesTags.has(valueLiMenu)) {
          DoublesTags.add(valueLiMenu);
