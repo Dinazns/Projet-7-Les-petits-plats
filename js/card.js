@@ -53,9 +53,9 @@ const searchHandler = function(searchQuery) {
             noResultsMessage.textContent = `Aucune recette ne contient ‘${word}’ vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
         }
 
-        const ingredientsFlat = removeDoubles.flatMap(r => r.ingredients);
-        const ustensilsFlat = removeDoubles.flatMap(r => r.ustensils);
-        const appliances = removeDoubles.map(r => r.appliance);
+        const ingredientsFlat = recipes.flatMap(r => r.ingredients);
+        const ustensilsFlat = recipes.flatMap(r => r.ustensils);
+        const appliances = recipes.map(r => r.appliance);
 
         resetDropdown();
 
