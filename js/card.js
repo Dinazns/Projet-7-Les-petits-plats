@@ -78,7 +78,7 @@ const searchHandler = function(searchQuery) {
         const ustensilsFlat = [];
         const appliances = [];
 
-        for (let r of removeDoubles) {
+        for (let r of recipes) {
             for (let i of r.ingredients) {
                 ingredientsFlat.push(i);
             }
