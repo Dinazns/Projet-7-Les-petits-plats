@@ -14,6 +14,14 @@ let listIng = [];
 let listApp = [];
 let listUst = [];
 
+function CountRecipe() {
+    
+    const recipeCards = document.querySelectorAll('.all_cards .card');
+    const recipeCountElement = document.querySelector('.totalNumberRecipe');
+
+    recipeCountElement.textContent = `${recipeCards.length} recettes`;
+}
+
 function renderRecipes(recipeList) {
     for (let recipe of recipeList) {
         cardTemplate(recipe);
@@ -100,9 +108,11 @@ const searchHandler = function(searchQuery) {
         //     cardTemplate(recipe);
         // }
         renderRecipes(removeDoubles);
+        CountRecipe();
         
     } else {
         resetCards();
+        CountRecipe();
         loadData();
     }
 }
@@ -563,6 +573,7 @@ function filterRecipesByTags() {
 
     resetCards();
     renderRecipes(finalRecipes);
+    CountRecipe();
 }
 
 // Fonction de gestion des tags
