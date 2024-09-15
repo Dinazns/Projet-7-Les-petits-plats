@@ -15,19 +15,21 @@ let listApp = [];
 let listUst = [];
 
 function CountRecipe() {
-    
     const recipeCards = document.querySelectorAll('.all_cards .card');
-    const recipeCountElement = document.querySelector('.totalNumberRecipe');
+    countElements(recipeCards)
+}
 
-    recipeCountElement.textContent = `${recipeCards.length} recettes`;
+function countElements(elts){
+    const recipeCountElement = document.querySelector('.totalNumberRecipe');
+    recipeCountElement.textContent = `${elts.length} recettes`;
 }
 
 function renderRecipes(recipeList) {
-    for (let recipe of recipeList) {
+    for (const recipe of recipeList) {
         cardTemplate(recipe);
     }
+    countElements(recipeList);
 }
-
 
 function resetCards (){
     console.log("Reset cards and tags");
