@@ -14,16 +14,18 @@ let listApp = [];
 let listUst = [];
 
 function CountRecipe() {
-    
     const recipeCards = document.querySelectorAll('.all_cards .card');
-    const recipeCountElement = document.querySelector('.totalNumberRecipe');
-
-    recipeCountElement.textContent = `${recipeCards.length} recettes`;
+    countElements(recipeCards)
 }
 
+function countElements(elts){
+    const recipeCountElement = document.querySelector('.totalNumberRecipe');
+    recipeCountElement.textContent = `${elts.length} recettes`;
+}
 
 function renderRecipes(recipeList) {
     recipeList.forEach(recipe => cardTemplate(recipe));
+    countElements(recipeList);
 }
 
 function resetCards() {
