@@ -11,28 +11,31 @@ body {
     position: relative;
     width: 100%;
     /* max-width: 1440px; */
-    height: 100%;
-    max-height: 960px;
+    /* height: 100%; */
+    height: 570px;
+    object-fit: cover;
 }
 
 .logo {
     position: absolute;
     z-index: 4;
 
-    width: 207px;
-    height: 25.26px;
-    margin-top: 51px;
-    margin-left: 69px;
+    width: 15%;
+    height: 25px;  
+   
+    margin-top: 3%;
+    margin-left: 5%;
 }
 
 .title {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     position: absolute;
-    bottom: 40%;
-    left: 25%;
-    width: 700px;
+    bottom: 45%; 
+    left: 50%; 
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 700px;
 }
 
 .title h1 {
@@ -43,28 +46,36 @@ body {
     font-size: 44px;
 }
 
-.fa-solid {
-    position: absolute;
-    right: 1%;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #1b1b1b;
-    font-size: 30px;
-    color: white;
-}
-
 #search_bloc {
     display: flex;
     position: absolute;
-    align-items: center;
-    bottom: 30%;
-    left: 16%;
+    top: 55%;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;    
+    padding: 10px;
+    width: 90%; 
+    max-width: 800px;
 }
 
 #search_bar {
+    display: flex;
+    position: relative;
+    width: 100%;
     border-radius: 10px;
-    height: 72px;
-    width: 954px;
+    height: 55px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.fa-solid {
+    position: absolute;
+    right: 2%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #1b1b1b;
+    font-size: 25px;
+    color: white;
 }
 
 #no-results-message {
@@ -75,7 +86,7 @@ body {
     font-style: normal;
     color: #FFD15B;
     font-size: 20px;
-    padding: 30px;
+    padding: 40px;
 }
 
 input {
@@ -127,7 +138,7 @@ input {
 
 .all_menu {
     display: flex;
-    gap: 63px;
+    gap: 10%;
     margin-left: 0;
 }
 
@@ -210,7 +221,7 @@ li {
 
 .allBlocsTags {
     display: flex;
-    gap: 30px;
+    gap: 2.5%;
 }
 
 .blocTag_menu {
@@ -260,7 +271,8 @@ li {
     display: flex;
     position: relative;
     margin-top: 40px;
-    width: 360px;
+    width: 100%;
+    max-width: 360px;
     height: 731px;
     border-radius: 20px;
     background-color: white;
@@ -335,4 +347,223 @@ h3 {
     color: grey;
 }
 
+/* ______________________________________________ Media Queries */
+
+/* Tablettes */
+@media (max-width: 1240px) {
+
+    .logo {  
+        width: 15%;
+        height: 20px;         
+        margin-top: 3%;
+        margin-left: 5%;
+    }
+
+    .image_accueil {
+        object-fit: cover;
+    }
+
+    .title {
+        align-items: center;
+        width: 55%;        
+        bottom: 50%;
+    }
+
+    .title h1 {
+        font-size: 35px;
+    }
+
+    #search_bloc {
+        top: 55%;
+    }
+
+    #search_bar {        
+        height: 55px;     
+    }
+
+    .fa-solid {
+        padding: 10px;
+        font-size: 20px;
+    }
+
+    .all_menu {
+        gap: 5%;
+        justify-content: center;
+    }
+
+    .menu_card__top {      
+        font-size: 14px;
+    } 
+
+    .menu_burger {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .all_cards {
+        gap: 20px;
+        justify-content: center;
+    } 
+
+    .card {
+        height: 660px;
+    }
+    
+    .card img {
+        height: 223px;
+    }
+    
+    .time_recipe {
+        top: 3%;
+        left: 70%;
+        width: 70px;
+        height: 30px;
+    }
+    
+    .card_content {
+        margin: 15px;
+    }
+    
+    h2, .totalNumberRecipe {
+        font-size: 18px;
+    }
+    
+    .all_ingredients {
+        display: grid;
+        padding-left: 25px;
+        justify-content: center;
+        grid-template-columns: 140px 140px;
+        grid-template-rows: 60px 60px 60px;
+        /* flex-wrap: wrap;
+        justify-content: space-between; */
+    }
+    
+    .p_description {   
+        max-height: 76px;
+        width: 295px;
+        font-size: 14px;
+    }
+}
+
+/* Mobiles */
+@media (max-width: 950px) {
+    
+    .logo {  
+        width: 23%;
+        height: 20px;         
+        margin-top: 4%;
+        margin-left: 6%;
+    }
+
+    .image_accueil {
+        object-fit: cover;
+    }
+
+    .title {
+        align-items: center;
+        width: 50%;        
+        bottom: 40%;
+    }
+
+    .title h1 {
+        font-size: 32px;
+    }
+
+    #search_bloc {
+        width: 60%;
+        padding: 5px;
+        top: 65%;
+    }
+
+    #search_bar {        
+        height: 40px;     
+    }
+
+    .fa-solid {
+        font-size: 12px;
+    }
+
+    .all_menu {
+        gap: 2%;
+        /* flex-wrap: wrap; */
+        justify-content: center;
+    }
+
+    .menu_card__top {              
+        font-size: 13px;
+        width: 110px;
+        height: 35px;
+        border: none;
+        padding: 5px 16px;
+        font-size: 15px;
+    } 
+
+    #ingredients-list, #appareils-list, #ustensils-list {
+        width: 109px;   
+        font-size: 15px;
+    }
+
+    .menu-hidden__searchbar input[type="search"] {
+        padding-right: 30px;
+        margin-right: -25px;    
+        width: 105px;
+        height: 35px;
+    }
+
+    .allBlocsTags {
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .menu_burger {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .all_cards {
+        justify-content: center;
+    } 
+
+    .card {
+        height: 660px;
+    }
+    
+    .card img {
+        height: 223px;
+    }
+    
+    .time_recipe {
+        top: 3%;
+        left: 75%;
+        width: 70px;
+        height: 30px;
+    }
+    
+    .card_content {
+        margin: 15px;
+    }
+    
+    h2, .totalNumberRecipe {
+        font-size: 18px;
+    }
+    
+    .all_ingredients {
+        display: grid;
+        padding-left: 25px;
+        justify-content: center;
+        grid-template-columns: 140px 140px;
+        grid-template-rows: 60px 60px 60px;
+        /* flex-wrap: wrap;
+        justify-content: space-between; */
+    }
+    
+    .p_description {   
+        max-height: 76px;
+        width: 295px;
+        font-size: 14px;
+    }
+
+} 
 
