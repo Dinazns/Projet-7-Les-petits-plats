@@ -13,11 +13,16 @@ let listIng = [];
 let listApp = [];
 let listUst = [];
 
+
 function CountRecipe() {
     const recipeCards = document.querySelectorAll('.all_cards .card');
     countElements(recipeCards)
 }
 
+/**
+ * cette fct permet de compter les éléments
+ * @param {*} elts 
+ */
 function countElements(elts){
     const recipeCountElement = document.querySelector('.totalNumberRecipe');
     recipeCountElement.textContent = `${elts.length} recettes`;
