@@ -1,6 +1,7 @@
 import { recipes } from "./recipes.js";
 import { loadDropdownElements } from "./menu.js";
 import { ul_ingMenu1, ul_ingMenu2, ul_ingMenu3 } from "./menu.js";
+import { sanitizeHTML } from "./security.js";
 
 export const appArrayResult = [];
 
@@ -40,9 +41,9 @@ function resetCards (){
 };
 
 function resetDropdown() {
-    ul_ingMenu1.innerHTML = '';
-    ul_ingMenu2.innerHTML = '';
-    ul_ingMenu3.innerHTML = '';
+    ul_ingMenu1.innerHTML = sanitizeHTML('');
+    ul_ingMenu2.innerHTML = sanitizeHTML('');
+    ul_ingMenu3.innerHTML = sanitizeHTML('');
 }
 
 // BARRE DE RECHERCHE PRINCIPALE__________________________________
@@ -186,7 +187,7 @@ function searchInMenu(el) {
 
 function updateMenuList(menuId, items, searchQuery, type) {
     const menuList = document.getElementById(menuId);
-    menuList.innerHTML = '';
+    menuList.innerHTML = sanitizeHTML('');
 
     const uniqueItems = new Set();
 
@@ -349,23 +350,23 @@ export function cardTemplate (recipe)  {
 
     const time_recipe = document.createElement("div");
     time_recipe.className = "time_recipe";
-    time_recipe.innerHTML = time + 'mn';
+    time_recipe.innerHTML = sanitizeHTML(time +'mn');
 
     const card_content = document.createElement("div");
     card_content.className = "card_content";
     const h2 = document.createElement("h2");
-    h2.innerHTML = name;
+    h2.innerHTML = sanitizeHTML(name);
 
     const div_recette = document.createElement("div");
     div_recette.className = "recette";
     const h3 = document.createElement("h3");
-    h3.innerHTML = 'RECETTE';
+    h3.innerHTML = sanitizeHTML('RECETTE');
     const p_description = document.createElement("p");
-    p_description.innerHTML = description;
+    p_description.innerHTML = sanitizeHTML(description);
     p_description.className = "p_description";
 
     const h3_ing = document.createElement("h3");
-    h3_ing.innerHTML = 'INGREDIENTS'
+    h3_ing.innerHTML = sanitizeHTML('INGREDIENTS');
 
     const maListe = listIngredient(ingredients);
 
