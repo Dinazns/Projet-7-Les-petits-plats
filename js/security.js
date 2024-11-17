@@ -3,3 +3,4 @@ export function sanitizeHTML (str) {
 	temp.textContent = str;
 	return temp.innerHTML;
 };
+
